@@ -59,7 +59,7 @@ textarea{
     line-height: 30px;
 }
 
-button{
+#tweet-btn{
     background-color: #1DA1F2;
     border: none;
     color: white;
