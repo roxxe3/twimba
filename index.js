@@ -14,7 +14,18 @@ document.addEventListener('click', function(e){
     else if(e.target.id === 'tweet-btn'){
         handleTweetBtnClick()
     }
+    else if(e.target.id === 'comment-btn'){
+        hundleComment(e.target.dataset.)
+    }
 })
+function hundleComment(tweetId){
+    const com = document.getElementById("comment")
+    if(com.value){
+        const targetTweetObj = tweetsData.filter(function(tweet){
+            return tweet.uuid === tweetId
+        })[0]
+    }
+}
  
 function handleLikeClick(tweetId){ 
     const targetTweetObj = tweetsData.filter(function(tweet){
@@ -89,11 +100,19 @@ function getFeedHtml(){
         }
         
         let repliesHtml = ''
+        let replyPost = `
+            <div class="tweet-reply">       
+                <div class="reply-totweet">
+                    <input placeholder="post your reply" id="comment" type="text">
+                    <button id="comment-btn">reply</button>
+                </div>    
+        `
         
         if(tweet.replies.length > 0){
             tweet.replies.forEach(function(reply){
                 repliesHtml+=`
-<div class="tweet-reply">
+                
+     
     <div class="tweet-inner">
         <img src="${reply.profilePic}" class="profile-pic">
             <div>
@@ -101,9 +120,10 @@ function getFeedHtml(){
                 <p class="tweet-text">${reply.tweetText}</p>
             </div>
         </div>
-</div>
+
 `
             })
+            replyPost += repliesHtml
         }
         
           
@@ -137,7 +157,7 @@ function getFeedHtml(){
         </div>            
     </div>
     <div class="hidden" id="replies-${tweet.uuid}">
-        ${repliesHtml}
+        ${replyPost}
     </div>   
 </div>
 `
